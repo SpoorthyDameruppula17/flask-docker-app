@@ -21,7 +21,7 @@ A simple Flask web app that returns "Hello World" on the homepage. Every time I 
 
 ---
 
-## 🚀 How the Automation Works
+## How the Automation Works
 
 1. **Code Push to Codeberg**  
    I push my code changes to the Codeberg repo.
