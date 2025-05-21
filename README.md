@@ -1,59 +1,94 @@
-# DevOps Internship Assignment – CI/CD with Jenkins and Codeberg
+### DevOps Assessment Task – JarNox Internship
 
-Hi! This is my submission for the DevOps assessment task at JarNox. The goal of this project was to build a simple CI/CD pipeline using **Jenkins** and **Codeberg**, to automatically deploy a basic **Flask "Hello World"** app.
-
-
-
-##  What I Built
-
-A simple Flask web app that returns "Hello World" on the homepage. Every time I push new code to the Codeberg repository, Jenkins automatically pulls the code, installs dependencies, and redeploys the app. I used **Docker** to make deployment clean and consistent.
+This is my submission for the JarNox DevOps Internship assessment task. The goal was to set up a basic CI/CD pipeline that automatically deploys a simple Flask app using Jenkins and Codeberg.
 
 
+### Task Overview
+Created a simple Flask app that shows “Hello World” on the homepage
 
-##  Project Structure
+Hosted the code in a Codeberg repository
 
- - app.py # Flask application
- - Dockerfile # For containerizing the app
- - requirements.txt # Flask dependency
- - jenkins-pipeline.sh # Script Jenkins runs on each build
+Installed and configured Jenkins on my local machine
 
+Set up a webhook on Codeberg to trigger Jenkins builds on every push
 
+The Jenkins pipeline:
 
----
+Pulls the latest code from Codeberg
 
-## How the Automation Works
+Installs Flask (using pip install flask)
 
-1. **Code Push to Codeberg**  
-   I push my code changes to the Codeberg repo.
-
-2. **Webhook Trigger**  
-   I set up a webhook in Codeberg that hits my Jenkins server when there's a new push.
-
-3. **Jenkins Pipeline**  
-   Jenkins receives the webhook, pulls the latest code, and runs a shell script:
-   - Installs the Python dependencies from `requirements.txt`
-   - Builds the Docker image
-   - Stops and removes any old containers
-   - Runs the app in a fresh container
-
-Now the app is live again with the new changes — all automatically.
+Restarts the app using a basic shell script
 
 
+### How I Did It
 
-## How to Test It
+## 1. Flask App Setup:
+I created a basic Flask app in app.py
 
-After the setup, open a browser and go to `http://localhost:5000` or your server IP. You’ll see **“Hello World”**.
+### Note:
+   I did not create a requirements.txt. Instead, I installed Flask manually with:
+       pip install flask
 
+
+## 2. Jenkins Setup
+Installed Jenkins on my local machine (Windows/Linux)
+
+Installed Git, Python, and Flask on the system
+
+Set up a freestyle project in Jenkins with the following steps:
+
+Pull code from the Codeberg repo
+
+Install Flask
+
+Restart the Flask app
+
+My shell script (deploy.sh) used in Jenkins:
+
+
+ - cd ~/Desktop/user/spoorthy
+ - git pull origin main
+ - pip install flask
+ - pkill -f app.py
+ - nohup python3 app.py &
+
+Gave the file execute permission:
+
+ - chmod +x deploy.sh
+
+
+ ## 3. Webhook on Codeberg
+Generated a webhook URL from Jenkins (using Git plugin or a webhook trigger plugin)
+
+Added that URL in the Codeberg repo’s settings -> Webhooks section
+
+Now, every push to the main branch automatically triggers Jenkins
+
+
+### How the Automation Works
+ - I pushed new code to Codeberg
+
+ - The webhook informs Jenkins
+
+ - Jenkins pulls the latest code
+
+ - Flask is installed (if not already)
+
+ - The Flask app restarts automatically
 
 
 ### Assumptions & Notes
-- I assumed the Jenkins server is running on a public IP or tunnel (e.g., ngrok) so the webhook can reach it.
+This setup uses a local Jenkins server, not hosted on the cloud.
 
-- I used Docker to make app deployment easy, but it could also be done without Docker.
+I manually installed Flask instead of using requirements.txt to keep things simple.
 
-- The app is basic just to test automation, not for production use.
+The app is restarted using a basic pkill + nohup approach. For production, something like systemd, supervisor, or Docker would be more robust.
 
 
-### Thanks!
-Thanks for the opportunity! This task helped me understand real-world CI/CD better, and I enjoyed working on it. 
+### Final Notes
+ - This task helped me understand how CI/CD works in real time.
 
+ - I learned how Jenkins connects with Git repositories and automates deployments.
+
+ - Looking forward to exploring more advanced tools like Docker and cloud deployment.
