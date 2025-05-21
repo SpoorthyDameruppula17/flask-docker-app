@@ -4,21 +4,21 @@ This is my submission for the JarNox DevOps Internship assessment task. The goal
 
 
 ### Task Overview
-Created a simple Flask app that shows “Hello World” on the homepage
+ - Created a simple Flask app that shows “Hello World” on the homepage
 
-Hosted the code in a Codeberg repository
+ - Hosted the code in a Codeberg repository
 
-Installed and configured Jenkins on my local machine
+ - Installed and configured Jenkins on my local machine
 
-Set up a webhook on Codeberg to trigger Jenkins builds on every push
+ - Set up a webhook on Codeberg to trigger Jenkins builds on every push
 
-The Jenkins pipeline:
+ - The Jenkins pipeline:
 
-Pulls the latest code from Codeberg
+ - Pulls the latest code from Codeberg
 
-Installs Flask (using pip install flask)
+ - Installs Flask (using pip install flask)
 
-Restarts the app using a basic shell script
+ - Restarts the app using a basic shell script
 
 
 ### How I Did It
@@ -28,42 +28,42 @@ I created a basic Flask app in app.py
 
 ### Note:
    I did not create a requirements.txt. Instead, I installed Flask manually with:
-       pip install flask
+       - pip install flask
 
 
 ## 2. Jenkins Setup
-Installed Jenkins on my local machine (Windows/Linux)
+- Installed Jenkins on my local machine (Windows/Linux)
 
-Installed Git, Python, and Flask on the system
+- Installed Git, Python, and Flask on the system
 
-Set up a freestyle project in Jenkins with the following steps:
+- Set up a freestyle project in Jenkins with the following steps:
 
-Pull code from the Codeberg repo
+- Pull code from the Codeberg repo
 
-Install Flask
+- Install Flask
 
-Restart the Flask app
+- Restart the Flask app
 
 My shell script (deploy.sh) used in Jenkins:
 
 
- - cd ~/Desktop/user/spoorthy
- - git pull origin main
- - pip install flask
- - pkill -f app.py
- - nohup python3 app.py &
+   - cd ~/Desktop/user/spoorthy
+   - git pull origin main
+   - pip install flask
+   - pkill -f app.py
+   - nohup python3 app.py &
 
 Gave the file execute permission:
 
- - chmod +x deploy.sh
+   - chmod +x deploy.sh
 
 
  ## 3. Webhook on Codeberg
-Generated a webhook URL from Jenkins (using Git plugin or a webhook trigger plugin)
+ - Generated a webhook URL from Jenkins (using Git plugin or a webhook trigger plugin)
 
-Added that URL in the Codeberg repo’s settings -> Webhooks section
+ - Added that URL in the Codeberg repo’s settings -> Webhooks section
 
-Now, every push to the main branch automatically triggers Jenkins
+ - Now, every push to the main branch automatically triggers Jenkins
 
 
 ### How the Automation Works
@@ -79,11 +79,11 @@ Now, every push to the main branch automatically triggers Jenkins
 
 
 ### Assumptions & Notes
-This setup uses a local Jenkins server, not hosted on the cloud.
+ - This setup uses a local Jenkins server, not hosted on the cloud.
 
-I manually installed Flask instead of using requirements.txt to keep things simple.
+ - I manually installed Flask instead of using requirements.txt to keep things simple.
 
-The app is restarted using a basic pkill + nohup approach. For production, something like systemd, supervisor, or Docker would be more robust.
+ - The app is restarted using a basic pkill + nohup approach. For production, something like systemd, supervisor, or Docker would be more robust.
 
 
 ### Final Notes
