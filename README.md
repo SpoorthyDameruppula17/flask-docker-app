@@ -1,74 +1,59 @@
-## DevOps Internship Task Submission – Spoorthy
+# DevOps Internship Assignment – CI/CD with Jenkins and Codeberg
 
-Hello World Flask App with Jenkins CI/CD and Docker:-
-
-This project is a simple "Hello World" Flask web application set up with CI/CD using Jenkins and Dockerized for deployment, built as part of the JarNox DevOps Internship Assignment.
+Hi! This is my submission for the DevOps assessment task at JarNox. The goal of this project was to build a simple CI/CD pipeline using **Jenkins** and **Codeberg**, to automatically deploy a basic **Flask "Hello World"** app.
 
 
 
-## Objective:-
+##  What I Built
 
-To demonstrate a basic DevOps workflow that includes:
-
-   1. A simple web app (Flask)
-   2. Docker containerization
-   3. Jenkins pipeline for Continuous Integration and Deployment
-   4. Triggering builds via a Git repository (GitHub)
+A simple Flask web app that returns "Hello World" on the homepage. Every time I push new code to the Codeberg repository, Jenkins automatically pulls the code, installs dependencies, and redeploys the app. I used **Docker** to make deployment clean and consistent.
 
 
 
-## Tech Stack:-
-  
-  - Python + Flask – for the web app.
-  - Docker – to containerize the app.
-  - Jenkins – for automation (CI/CD)
-  - GitHub – as the source code repository
-  - Codeberg webhook / GitHub – to trigger Jenkins builds
+##  Project Structure
+
+ - app.py # Flask application
+ - Dockerfile # For containerizing the app
+ - requirements.txt # Flask dependency
+ - jenkins-pipeline.sh # Script Jenkins runs on each build
 
 
 
-## Features:-
+---
 
-  - Shows “Hello, World!” on the web page.
-  - Dockerfile builds the app into a container.
-  - Jenkinsfile automates the build and run process.
-  - Pipeline triggers automatically when code is pushed.
+## 🚀 How the Automation Works
 
+1. **Code Push to Codeberg**  
+   I push my code changes to the Codeberg repo.
 
+2. **Webhook Trigger**  
+   I set up a webhook in Codeberg that hits my Jenkins server when there's a new push.
 
-## How It Works:-
-  
-  1. Flask app created (app.py) to return a simple message.
-  2. Dockerfile builds the app image.
-  3. Jenkinsfile defines a 3-stage pipeline:
+3. **Jenkins Pipeline**  
+   Jenkins receives the webhook, pulls the latest code, and runs a shell script:
+   - Installs the Python dependencies from `requirements.txt`
+   - Builds the Docker image
+   - Stops and removes any old containers
+   - Runs the app in a fresh container
 
-    - Clone Repo
-    - Build Docker Image
-    - Run Container
-  4. Jenkins listens for push events from GitHub.
-  5. When code is pushed, Jenkins:
-
-    - Clones the repo
-    - Builds the Docker image
-    - Runs the container
+Now the app is live again with the new changes — all automatically.
 
 
 
-## Project Structure:-
+## How to Test It
 
-  1. app.py            # Flask web app
-  2. Dockerfile        # Docker image instructions         
-  3. Jenkinsfile        # Jenkins pipeline
-  4. README.md
+After the setup, open a browser and go to `http://localhost:5000` or your server IP. You’ll see **“Hello World”**.
 
 
 
-## What’s Not Working / Still Pending:-
-- I couldn’t complete the **webhook** setup from Codeberg to Jenkins.
-- The **cleanup task (after 7 days)** is not implemented.
+### Assumptions & Notes
+- I assumed the Jenkins server is running on a public IP or tunnel (e.g., ngrok) so the webhook can reach it.
+
+- I used Docker to make app deployment easy, but it could also be done without Docker.
+
+- The app is basic just to test automation, not for production use.
 
 
-## About Me:-
+### Thanks!
+Thanks for the opportunity! This task helped me understand real-world CI/CD better, and I enjoyed working on it. 
 
-Hi! I'm Spoorthy Dameruppula, a passionate DevOps enthusiast and recent graduate.
-This project was created as a part of my assignment to showcase my ability to use Jenkins and Docker in a basic CI/CD workflow.
